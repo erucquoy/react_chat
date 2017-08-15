@@ -7,6 +7,7 @@ class Formulaire extends React.Component {
 	}
 
 	createMessage = (e) => {
+		console.log(e);
 		e.preventDefault();
 		const message = {
 			message: this.message.value,
@@ -16,6 +17,12 @@ class Formulaire extends React.Component {
 		this.messageForm.reset();
 		const length = this.props.length;
 		this.setState({ length });
+	};
+
+	sendMessage = (e) => {
+		if (e.key === 'Enter') {
+			this.submitButton.click();
+		}
 	};
 
 	counter = (e) => {
@@ -35,9 +42,10 @@ class Formulaire extends React.Component {
 					maxLength={this.props.length}
 					ref={(input) => {this.message = input}}
 					onChange={(e) => {this.counter(e)}}
+					onKeyPress={(e) => {this.sendMessage(e)}}
 				></textarea>
 				<div className="info">{this.state.length}</div>
-				<button type="submit">Send!</button>
+				<button type="submit" ref={(input) => {this.submitButton = input}}>Send!</button>
 			</form>
 		);
 	}
